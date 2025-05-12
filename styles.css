@@ -350,6 +350,7 @@
       }
     }
 
+    /* The + checks for any direct siblings that come before with aria expanded true */
     [aria-expanded="true"] ~ .primary-navigation {
       display: block;
     }
