@@ -290,11 +290,60 @@
     justify-content: space-between;
   }
 
+  [aria-controls="primary-nav"] {
+    /* display: block; */
+    z-index: 100;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    /* display: none; */
+
+    img {
+      border-radius: 0;
+    }
+  }
+
   .primary-navigation {
     ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
       display: flex;
       flex-wrap: wrap;
       gap: 2rem;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    @media (width < 760px) {
+      background-color: var(--background-accent-main);
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: var(--font-size-lg);
+      font-weight: 700;
+      font-family: var(--ff-heading);
+      padding: 2rem;
+      border-radius: 0 0 0 var(--border-radius-3);
+
+      ul {
+        gap: 0;
+        flex-direction: column;
+      }
+
+      /* Next applies lines the last 2 elements of the list */
+      li + li {
+        /* background-color: red; */
+        margin-block-start: 1.5rem;
+        padding-block-start: 1.5rem;
+        border-top: 2px solid var(--background-accent-light);
+      }
+      /* .primary-navigation {
+        position: absolute;
+        flex-direction: column;
+      } */
     }
   }
 
