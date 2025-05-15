@@ -149,6 +149,12 @@
 }
 
 @layer base {
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   html {
     font-family: var(--ff-body);
     line-height: 1.6;
@@ -199,12 +205,12 @@
     gap: 0.5rem;
   }
 
-  .grid-auto-fit {
+  .grid-auto-fill {
     --grid-auto-fit-min-column-size: 250px;
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(
-      auto-fit,
+      auto-fill,
       minmax(min(var(--grid-auto-fit-min-column-size), 100%), 1fr)
     );
   }
@@ -570,6 +576,9 @@
 }
 
 @layer utilities {
+  [hidden] {
+    display: none;
+  }
   .text-center {
     text-align: center;
   }
