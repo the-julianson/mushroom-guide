@@ -1,3 +1,7 @@
+@view-transition {
+  navigation: auto;
+}
+
 @layer reset {
   *,
   *::before,
@@ -82,6 +86,11 @@
     --clr-green-400: hsl(143, 19%, 49%);
     --clr-green-500: hsl(143, 38%, 37%);
     --clr-green-600: hsl(145, 29%, 19%);
+
+    --clr-brown-100: hsl(10, 5%, 92%);
+    --clr-brown-200: hsl(9, 7%, 85%);
+    --clr-brown-300: hsl(9, 8%, 78%);
+    --clr-brown-400: hsl(0, 6%, 72%);
     --clr-brown-500: hsl(10, 5%, 25%);
     --clr-brown-600: hsl(9, 7%, 21%);
     --clr-brown-700: hsl(9, 8%, 16%);
@@ -145,6 +154,20 @@
     --border-radius-1: 0.25rem;
     --border-radius-2: 0.5rem;
     --border-radius-3: 0.75rem;
+
+    @media (prefers-color-scheme: light) {
+      --text-main: var(--clr-brown-800);
+      --text-high-contrast: var(--clr-900);
+
+      --background-accent-light: var(--clr-green-600);
+      --background-accent-main: var(--clr-green-500);
+      --background-accent-dark: var(--clr-green-400);
+      --background-extra-light: var(--clr-white);
+      --background-light: var(--clr-brown-100);
+      --background-main: var(--clr-brown-200);
+      --background-dark: var(--clr-brown-300);
+      --background-extra-dark: var(--clr-brown-400);
+    }
   }
 }
 
@@ -312,7 +335,7 @@
     background-image: url(/assets/hero.webp);
     background-size: cover;
     font-size: var(--font-size-md);
-    color: var(--text-high-contrast);
+    color: var(--clr-white);
   }
 
   .hero__title {
@@ -437,6 +460,11 @@
 
     .primary-navigation {
       display: none;
+      opacity: 0;
+
+      transition: display 1s, opacity 1s;
+      transition-behavior: allow-discrete;
+
       position: absolute;
       z-index: 10;
       top: 0;
@@ -453,6 +481,22 @@
         font-weight: 700;
       }
 
+      li {
+        translate: 0;
+        opacity: 1;
+
+        transition: opacity 300ms, translate 875ms;
+        transition-delay: var(--delay, 125ms);
+
+        &:nth-child(2) {
+          --delay: 250ms;
+        }
+
+        &:nth-child(3) {
+          --delay: 325ms;
+        }
+      }
+
       li + li {
         margin-top: 1rem;
         padding-top: 1rem;
@@ -460,9 +504,24 @@
       }
     }
 
-    /* The + checks for any direct siblings that come before with aria expanded true */
     [aria-expanded="true"] ~ .primary-navigation {
       display: block;
+      opacity: 1;
+
+      @starting-style {
+        display: block;
+        opacity: 0;
+      }
+
+      li {
+        translate: 0;
+        opacity: 1;
+
+        @starting-style {
+          translate: 100%;
+          opacity: 0;
+        }
+      }
     }
   }
 
@@ -579,6 +638,11 @@
   [hidden] {
     display: none;
   }
+
+  .resizing * {
+    transition: none;
+    /* animation: none; */
+  }
   .text-center {
     text-align: center;
   }
@@ -636,8 +700,3 @@
     width: 1px;
   }
 }
-
-/* .header p {
-  max-width: 720px;
-  margin-inline: auto;
-} */
